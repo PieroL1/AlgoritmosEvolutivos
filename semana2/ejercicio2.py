@@ -1,3 +1,7 @@
+# ALUMNO : LIZA GUERRERO PIERO ALEXANDRO
+# CODIGO : 0202114037
+# PRACTICA SEMANA 2
+
 import pandas as pd
 
 costo_hora_pc = 2

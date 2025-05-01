@@ -1,4 +1,8 @@
 
+# ALUMNO : LIZA GUERRERO PIERO ALEXANDRO
+# CODIGO : 0202114037
+# PRACTICA SEMANA 2
+
 # Se importa la libreria que se va a usar
 import numpy as np
 # Creamos la variable con nuestro presupuesto
