@@ -1,0 +1,141 @@
+/* Reset y estilos base */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #1a1a1a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenedor principal para que crezca */
+main {
+  flex: 1;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #111;
+}
+header .logo {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 40px;
+  background: #222;
+}
+.hero-text {
+  max-width: 60%;
+}
+.hero-text h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+.hero-text p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  color: #bbb;
+}
+.hero button {
+  background: #d8374f;
+  border: none;
+  padding: 15px 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Tarjetas */
+.tarjetas {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 30px 40px;
+  background: #f0f0f0;
+  color: #333;
+}
+.tarjeta {
+  background: white;
+  flex: 1;
+  max-width: 380px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+.tarjeta img {
+  width: 100%;
+  height: auto;
+}
+.contenido-tarjeta {
+  padding: 15px;
+}
+.contenido-tarjeta h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+.contenido-tarjeta p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #666;
+}
+
+/* Footer fijo abajo */
+footer {
+  background: #111;
+  color: #bbb;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 30px 20px;
+    text-align: center;
+  }
+  .hero-text {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .tarjetas {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .tarjeta {
+    max-width: 100%;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  nav a {
+    margin: 5px 10px;
+  }
+}

@@ -1,0 +1,115 @@
+import pandas as pd
+import numpy as np
+import random
+
+# Cargar archivo Excel con disponibilidad
+file_path_2 = 'Semana5\ejercicio2.xlsx'
+df2 = pd.read_excel(file_path_2)
+
+# Eliminar columna MentorID para trabajar solo con disponibilidad
+availability = df2.drop(columns=['MentorID']).values
+num_mentors, num_slots = availability.shape
+
+def posibles_bloques_disponibles(disponibilidad_mentor):
+    """
+    Devuelve lista de bloques de 2 horas consecutivas disponibles para un mentor.
+    """
+    bloques = []
+    for i in range(num_slots - 1):
+        if disponibilidad_mentor[i] == 1 and disponibilidad_mentor[i+1] == 1:
+            bloques.append((i, i+1))
+    return bloques
+
+def calcular_choques(asignacion):
+    """
+    Calcula el número total de choques dado una asignación.
+    asignacion es una lista de tuplas (bloque de 2 slots asignado a cada mentor).
+    """
+    contador_slots = np.zeros(num_slots, dtype=int)
+    
+    for bloque in asignacion:
+        if bloque is None:
+            # Ignorar mentores sin asignación
+            continue
+        # Sumar 1 a los slots asignados
+        contador_slots[bloque[0]] += 1
+        contador_slots[bloque[1]] += 1
+    
+    # Choques son slots con más de 1 mentor asignado
+    choques = np.sum(contador_slots > 1)
+    return choques
+
+
+def generar_solucion_inicial():
+    """
+    Genera una asignación inicial aleatoria respetando la disponibilidad.
+    """
+    asignacion = []
+    for m in range(num_mentors):
+        bloques = posibles_bloques_disponibles(availability[m])
+        if bloques:
+            asignacion.append(random.choice(bloques))
+        else:
+            # Si no tiene bloques disponibles, asignamos None (no puede asignar)
+            asignacion.append(None)
+    return asignacion
+
+def vecindad(asignacion_actual):
+    """
+    Genera una lista de vecinos cambiando el bloque asignado a un mentor.
+    """
+    vecinos = []
+    
+    for i in range(num_mentors):
+        bloques = posibles_bloques_disponibles(availability[i])
+        if bloques and asignacion_actual[i] is not None:
+            for b in bloques:
+                if b != asignacion_actual[i]:
+                    vecino = asignacion_actual.copy()
+                    vecino[i] = b
+                    vecinos.append(vecino)
+    return vecinos
+
+def hill_climbing_disponibilidad():
+    """
+    Aplica hill climbing para minimizar choques en asignación de bloques.
+    """
+    current_solution = generar_solucion_inicial()
+    current_cost = calcular_choques(current_solution)
+    improving = True
+    
+    while improving:
+        improving = False
+        vecinos = vecindad(current_solution)
+        for vecino in vecinos:
+            cost = calcular_choques(vecino)
+            if cost < current_cost:
+                current_solution = vecino
+                current_cost = cost
+                improving = True
+                break  # Tomamos la primera mejora encontrada
+        
+        # Si encontramos choques = 0, salimos temprano
+        if current_cost == 0:
+            break
+    
+    return current_solution, current_cost
+
+# Ejecutar hill climbing
+solucion_final, choques_final = hill_climbing_disponibilidad()
+
+# Mostrar resultados
+print(f"Choques finales: {choques_final}")
+
+# Mostrar asignación por mentor con nombres de slots
+slot_names = df2.columns[1:].tolist()
+asignacion_nombres = []
+for bloque in solucion_final:
+    if bloque is None:
+        asignacion_nombres.append("No asignado")
+    else:
+        asignacion_nombres.append(f"{slot_names[bloque[0]]} y {slot_names[bloque[1]]}")
+
+df2['Asignación'] = asignacion_nombres
+print("\nAsignación final por mentor:")
+print(df2[['MentorID', 'Asignación']])

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hill Climbing</title>
+  <link rel="stylesheet" href="style.css" />
+ 
+</head>
+<body>
+
+    <header>
+        <div class="container">
+          <div class="logo"><img src="Algoritmos_evolutivo.png" alt="Descripción de la imagen" width="150" height="150">
+          </div>
+      
+          <div class="menu-toggle" id="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+      
+          <nav id="nav">
+            <ul>
+              <li><a href="#concepto">CONCEPTO</a></li>
+              <li><a href="#implementacion">IMPLEMENTACION</a></li>
+              <li><a href="#biblio">BIBLIOTECAS</a></li>
+              <li><a href="#ejemplo">EJEMPLO</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      
+
+  <section  id="concepto" class="hero" style="background-image: url('HillClimbling.jpeg');">
+    <div class="hero-text">
+      <h1>Hill Climbing</h1>
+      <p>Hill Climbing es un método para encontrar la mejor solución a un problema. Empiezas con una opción y en cada paso eliges la mejor opción cercana que mejora el resultado. Sigues avanzando hasta que no puedes mejorar más y llegas a la "cima".</p>
+    
+    </div>
+  </section>
+
+  <section id="implementacion" class="services">
+    <h2  class="titulodescado" >Implementación en Python</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3> Funcion solucion inicial</h3>
+        <p>Hill Climbing es un algoritmo de búsqueda local que comienza con una solución inicial en Python, generada aleatoriamente o según un criterio, y utiliza una función para evaluar su calidad.</p>
+      </div>
+      <div class="card">
+        <h3>Generación y evaluación de vecinos</h3>
+        <p>Asi mismo en Python, se crea una función que genera soluciones vecinas modificando la actual, las cuales se evalúan para elegir la mejor según una función objetivo.</p>
+      </div>
+      <div class="card">
+        <h3>Actualización de solución</h3>
+        <p>Si un vecino es mejor que la solución actual, el algoritmo la reemplaza y sigue buscando hasta no hallar mejoras, indicando un máximo local.</p>
+      </div>
+      <div class="card">
+        <h3>Aplicaciones y adaptabilidad</h3>
+        <p>Por lo mencionado Hill Climbing en Python es útil para problemas de optimización donde se busca mejorar soluciones paso a paso adaptandose fácilmente a diferentes contextos</p>
+      </div>
+    </div>
+   
+  </section>
+
+
+  <section id="biblio" class="services2">
+    <h2 class="titulodescado2">Bibliotecas Esenciales</h2>
+    <div class="service-cards">
+      <div class="card2">
+        <h3 class="letrita">NumPy</h3>
+        <p class="letrita3">Facilita el manejo eficiente de arreglos y operaciones matemáticas vectorizadas, lo que permite calcular valores de función objetivo y generar vecinos rápidamente, optimizando el rendimiento del algoritmo.</p>
+        <img src="numpi.png"alt="Descripción de la imagen" width="250" height="170">
+    </div>
+      <div class="card2">
+        <h3 class="letrita2">Pandas</h3>
+        <p class="letrita4">Ayuda a organizar y manipular datos en estructuras tabulares (DataFrames), facilitando el seguimiento y análisis de soluciones, estados visitados, y resultados parciales durante la ejecución del algoritmo.</p>
+        <img src="pandas.jpg"alt="Descripción de la imagen" width="250" height="150">
+    </div> 
+    </div>
+    
+  </section>
+
+  <section  id=ejemplo  class="case-studies">
+    <h2>Espacio para tu ejemplo mojon</h2>
+    
+    <button>EJECUTAR</button>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Algoritmos evolutivos. Gonzales - Liza.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
