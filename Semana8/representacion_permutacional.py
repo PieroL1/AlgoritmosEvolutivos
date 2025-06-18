@@ -2,7 +2,7 @@ import random
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('notas_1u.csv')
+df = pd.read_csv('Semana8/notas_1u.csv')
 alumnos = df['Alumno'].tolist()
 notas = df['Nota'].tolist()
 
@@ -12,16 +12,30 @@ def crear_cromosoma():
     return indices
 
 def decodificar_cromosoma(cromosoma):
-    asignaciones = {
-        'A': cromosoma[0:13],
-        'B': cromosoma[13:26],
-        'C': cromosoma[26:39]
-    }
+    asignaciones = {'A': [], 'B': [], 'C': []}
+    # Cada cromosoma tiene 39 índices, divididos en tres partes
+    for i in range(39):
+        if i < 13:
+            asignaciones['A'].append(cromosoma[i])  # Alumnos 0-12 van a A
+        elif i < 26:
+            asignaciones['B'].append(cromosoma[i])  # Alumnos 13-25 van a B
+        else:
+            asignaciones['C'].append(cromosoma[i])  # Alumnos 26-38 van a C
+    
+    # Nueva restricción: No permitir que todos los alumnos con notas < 11 estén en el mismo examen
+    for examen in ['A', 'B', 'C']:
+        alumnos_examen = asignaciones[examen]
+        alumnos_bajos = [alumno for alumno in alumnos_examen if notas[alumno] < 11]
+        if len(alumnos_bajos) > 2:  # Penalizamos si hay más de 2 alumnos con notas bajas en el mismo examen
+            return -1000  # Penalización alta si la restricción es violada
+
     return asignaciones
 
 def calcular_fitness(cromosoma):
     asignaciones = decodificar_cromosoma(cromosoma)
-    
+    if asignaciones == -1000:
+        return -1000  # Penalización por violar la restricción
+
     promedios = {}
     for examen in ['A', 'B', 'C']:
         indices = asignaciones[examen]
@@ -152,10 +166,5 @@ print(f"Promedios: A={promedios[0]:.2f}, B={promedios[1]:.2f}, C={promedios[2]:.
 print(f"Rangos de notas: A={rangos[0]:.0f}, B={rangos[1]:.0f}, C={rangos[2]:.0f}")
 print(f"Desviación estándar entre promedios: {np.std(promedios):.4f}")
 
-print("\nEvolución del algoritmo:")
-print(f"Fitness inicial: {historial[0]:.4f}")
-print(f"Fitness final: {historial[-1]:.4f}")
-print(f"Mejora total: {((historial[-1] - historial[0]) / abs(historial[0]) * 100):.1f}%")
-
-
-#
+# Guardar las asignaciones finales en una variable accesible para la visualización
+asignaciones_permutacional = decodificar_cromosoma(mejor_solucion)

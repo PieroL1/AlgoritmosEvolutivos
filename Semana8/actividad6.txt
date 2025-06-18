@@ -1,0 +1,14 @@
+2. Cambios necesarios en el cromosoma
+El cromosoma debe tener 4 bits por alumno (en lugar de 3).
+
+Cada bit indica a qué examen pertenece un alumno. Un 1 en el bit correspondiente al examen significa que el alumno está asignado a ese examen, mientras que los otros bits son 0.
+
+3. ¿Cómo afecta esto a la convergencia del algoritmo?
+Convergencia más lenta:
+Al agregar un examen más (D), el espacio de búsqueda del algoritmo se expande. Ahora el algoritmo tiene que asignar los alumnos a 4 exámenes en lugar de 3, lo que puede hacer que la convergencia sea más lenta, ya que las combinaciones posibles son mayores.
+
+Posible mayor diversidad:
+Con 4 exámenes, el algoritmo tiene más flexibilidad para distribuir a los alumnos, lo que podría generar una mayor diversidad en la asignación de los alumnos a los exámenes.
+
+Complejidad mayor:
+El número de bits en el cromosoma aumenta, y con ello la complejidad del algoritmo. Esto podría hacer que el algoritmo tarde más en encontrar una solución óptima debido al aumento de las

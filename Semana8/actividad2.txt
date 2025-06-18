@@ -1,0 +1,133 @@
+****************************************************************************************************
+**************************************    ACTIVIDAD 2    *******************************************
+****************************************************************************************************
+
+Se decide modificar la función calcular_fitness:
+Primero, modificamos el archivo representacion_binaria.py en la función de fitness para incluir:
+
+- Cálculo de la varianza en las notas de cada examen.
+
+- Penalización cuando la varianza es alta.
+
+- Premio por diversidad si la diferencia entre la mejor y la peor nota es grande.
+
+**Explicación de los cambios realizados:**
+- Varianza: Usamos np.var() para calcular la varianza de las notas dentro de cada grupo (examen).
+
+- Penalización: La varianza más alta penaliza el fitness, porque queremos que los grupos tengan un rendimiento similar.
+
+- Diversidad: La diversidad se mide como la diferencia entre la nota más alta y la más baja en cada examen. Si esta diferencia es mayor a 5, damos un premio de 0.1.
+
+- Fitness: Se optimiza el fitness teniendo en cuenta la desviación estándar de los promedios (para equilibrar las medias entre exámenes), penalizando las varianzas altas y premiando la diversidad.
+
+
+Comparación de los resultados: Modificación vs. Original
+1. Equilibrio en la distribución de los exámenes:
+Original:
+
+La distribución entre los exámenes A, B y C es bastante equilibrada, con 13 alumnos en cada examen.
+
+La desviación estándar entre los promedios de los exámenes es muy baja, 0.0363, lo que indica que los grupos están equilibrados en cuanto a las notas.
+
+Modificación:
+
+Después de modificar la función de fitness, la distribución no es tan equilibrada. Los grupos no tienen el mismo número de alumnos:
+
+Examen A: 12 alumnos
+
+Examen B: 19 alumnos
+
+Examen C: 8 alumnos
+
+La desviación estándar entre los promedios aumentó considerablemente a 2.7356, lo que sugiere que la distribución de las notas en los exámenes no es tan equilibrada como antes.
+
+2. Promedios de las notas:
+Original:
+
+Los promedios de las notas en los tres exámenes son casi iguales:
+
+Examen A: 15.46
+
+Examen B: 15.38
+
+Examen C: 15.38
+
+Modificación:
+
+Los promedios de las notas en los exámenes difieren considerablemente:
+
+Examen A: 19.17
+
+Examen B: 12.53
+
+Examen C: 16.62
+
+El promedio de Examen A es mucho más alto que en la versión original, mientras que el promedio de Examen B es significativamente más bajo.
+
+3. Impacto de la modificación en el equilibrio y la diversidad:
+Original:
+
+La distribución es equitativa tanto en términos de número de alumnos como de rendimiento académico.
+
+Modificación:
+
+La modificación de la función de fitness, que penaliza la varianza de las notas y premia la diversidad, ha llevado a una distribución desigual de los alumnos. Aunque el objetivo era aumentar la diversidad (es decir, mezclar alumnos con diferentes rendimientos), parece que esto ha afectado negativamente al equilibrio de los grupos.
+
+La penalización por varianza alta podría haber influido en que el algoritmo haya colocado a los mejores alumnos en un examen (A) y a los peores en otro (B), mientras que el Examen C queda con un grupo intermedio.
+
+Conclusión:
+Original: El algoritmo produce una distribución equilibrada tanto en número de alumnos como en las notas de los exámenes, con una desviación estándar baja, lo que indica que los grupos están bien equilibrados.
+
+Modificación: Aunque el algoritmo intenta mejorar la diversidad de los grupos, esto ha llevado a una distribución desigual de los alumnos entre los exámenes, con una desviación estándar mucho mayor. Esto sugiere que la modificación de la función de fitness no ha tenido el efecto deseado en términos de equilibrio.
+
+Si el objetivo es mantener un equilibrio estricto entre los grupos, la versión original parece ser más efectiva. Sin embargo, si se busca mayor diversidad en la asignación de alumnos, la versión modificada podría ser útil, aunque debe mejorarse para equilibrar mejor los grupos.
+
+
+************************* MODIFICACION - RESULTADOS *************************************
+
+REPRESENTACIÓN BINARIA
+Problema: Distribuir 39 alumnos en 3 exámenes (A, B, C) de forma equitativa
+Cromosoma: 117 bits (39 alumnos × 3 bits cada uno)
+Gen: [0,1,0] significa alumno asignado a examen B
+
+Generación 0: Mejor fitness = -8.8923
+Generación 20: Mejor fitness = -6.4200
+Generación 40: Mejor fitness = -5.6227
+Generación 60: Mejor fitness = -5.2520
+Generación 80: Mejor fitness = -4.6400
+
+Distribución final:
+Examen A: 12 alumnos, promedio = 19.17
+  Alumnos: ['Alumno11', 'Alumno12', 'Alumno15', 'Alumno17', 'Alumno19']... (mostrando primeros 5)
+Examen B: 19 alumnos, promedio = 12.53
+  Alumnos: ['Alumno2', 'Alumno3', 'Alumno4', 'Alumno5', 'Alumno6']... (mostrando primeros 5)
+Examen C: 8 alumnos, promedio = 16.62
+  Alumnos: ['Alumno1', 'Alumno10', 'Alumno14', 'Alumno16', 'Alumno18']... (mostrando primeros 5)
+
+Verificación de equilibrio:
+Desviación estándar entre promedios: 2.7356
+
+
+************************* ORIGINAL - RESULTADOS *************************************
+
+REPRESENTACIÓN BINARIA
+Problema: Distribuir 39 alumnos en 3 exámenes (A, B, C) de forma equitativa
+Cromosoma: 117 bits (39 alumnos × 3 bits cada uno)
+Gen: [0,1,0] significa alumno asignado a examen B
+
+Generación 0: Mejor fitness = -0.2968
+Generación 20: Mejor fitness = -0.0363
+Generación 40: Mejor fitness = -0.0363
+Generación 60: Mejor fitness = -0.0363
+Generación 80: Mejor fitness = -0.0363
+
+Distribución final:
+Examen A: 13 alumnos, promedio = 15.46
+  Alumnos: ['Alumno1', 'Alumno4', 'Alumno8', 'Alumno9', 'Alumno11']... (mostrando primeros 5)
+Examen B: 13 alumnos, promedio = 15.38
+  Alumnos: ['Alumno2', 'Alumno5', 'Alumno6', 'Alumno12', 'Alumno21']... (mostrando primeros 5)
+Examen C: 13 alumnos, promedio = 15.38
+  Alumnos: ['Alumno3', 'Alumno7', 'Alumno10', 'Alumno15', 'Alumno16']... (mostrando primeros 5)
+
+Verificación de equilibrio:
+Desviación estándar entre promedios: 0.0363

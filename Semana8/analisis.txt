@@ -1,0 +1,157 @@
+****************************************************************************************************
+**************************************    PREGUNTAS    *********************************************
+****************************************************************************************************
+
+1. ¿Cuál representación logra mejor equilibrio entre los grupos?
+
+  Representación Binaria: Logra un equilibrio muy bueno, con una desviación estándar entre los promedios de los exámenes de 0.0363. Los tres grupos (A, B, y C) tienen un promedio muy cercano, lo que indica una distribución equilibrada de los alumnos.
+
+  Representación Real: También logra un buen equilibrio con una desviación estándar de 0.0363 entre los promedios, similar a la representación binaria. Sin embargo, hay una ligera diferencia en los promedios de los exámenes, siendo el promedio de C un poco mayor (15.46) que A y B (15.38).
+
+  Representación Permutacional: También muestra un buen equilibrio con una desviación estándar de 0.0363, similar a las otras representaciones. Los promedios son muy similares, con pequeñas diferencias.
+
+  Las tres representaciones logran un buen equilibrio entre los grupos, con una desviación estándar muy baja en todos los casos. No obstante, la representación binaria parece ser la más equilibrada en cuanto a la distribución de las notas.
+
+
+****************************************************************************************************
+
+
+2. ¿Cuál converge más rápido? (observa las generaciones)
+
+  Representación Binaria: El mejor fitness se estabiliza a partir de la generación 40 con un valor constante de -0.0363. La mejora es lenta, y la solución no mejora significativamente más allá de la generación 20.
+
+  Representación Real: El fitness se mantiene constante en -1.0911 desde la generación 30. No muestra mejoras a lo largo de las generaciones, lo que indica que el algoritmo no está mejorando la distribución a lo largo del tiempo.
+
+  Representación Permutacional: El mejor fitness mejora significativamente del valor inicial 0.0794 al valor final 0.2637, mostrando una mejora del 232.0%. Esto indica que esta representación tiene un cambio más dinámico y probablemente converge de manera más efectiva.
+
+  La representación permutacional parece ser la que converge más rápido, con una mejora notable en pocas generaciones, en comparación con las otras representaciones que se estabilizan rápidamente.
+
+
+****************************************************************************************************
+
+Análisis Comparativo de Representaciones Cromosómicas:
+
+1. La representación binaria y real logran un excelente equilibrio entre los exámenes, con desviaciones estándar de 0.0363. Sin embargo, la representación binaria ofrece un equilibrio ligeramente más uniforme en la distribución de los alumnos.
+2. La representación permutacional es la que muestra una mejora más significativa en las primeras generaciones, con una mejora del 232% en el fitness.
+3. Las representaciones binaria y real tienden a estabilizarse rápidamente, mientras que la permutacional sigue mostrando mejoras en las generaciones iniciales.
+
+Recomendaciones:
+- Si el objetivo es equilibrio, cualquiera de las tres representaciones es adecuada.
+- Si se busca una convergencia más rápida, la representación permutacional es la opción ideal.
+
+
+
+****************************************************************************************************
+
+                     EN LA PARTE INFERIOR LOS RESULTADOS DE EJECUCION:
+
+****************************************************************************************************
+
+representacion_binaria.py:
+
+REPRESENTACIÓN BINARIA
+Problema: Distribuir 39 alumnos en 3 exámenes (A, B, C) de forma equitativa
+Cromosoma: 117 bits (39 alumnos × 3 bits cada uno)
+Gen: [0,1,0] significa alumno asignado a examen B
+
+Generación 0: Mejor fitness = -0.2968
+Generación 20: Mejor fitness = -0.0363
+Generación 40: Mejor fitness = -0.0363
+Generación 60: Mejor fitness = -0.0363
+Generación 80: Mejor fitness = -0.0363
+
+Distribución final:
+Examen A: 13 alumnos, promedio = 15.46
+  Alumnos: ['Alumno1', 'Alumno4', 'Alumno8', 'Alumno9', 'Alumno11']... (mostrando primeros 5)
+Examen B: 13 alumnos, promedio = 15.38
+  Alumnos: ['Alumno2', 'Alumno5', 'Alumno6', 'Alumno12', 'Alumno21']... (mostrando primeros 5)
+Examen C: 13 alumnos, promedio = 15.38
+  Alumnos: ['Alumno3', 'Alumno7', 'Alumno10', 'Alumno15', 'Alumno16']... (mostrando primeros 5)
+
+Verificación de equilibrio:
+Desviación estándar entre promedios: 0.0363
+
+****************************************************************************************************
+
+representacion_real.py:
+
+REPRESENTACIÓN REAL
+Problema: Optimizar distribución de alumnos usando pesos probabilísticos
+Cromosoma: 117 valores reales (39 alumnos × 3 pesos normalizados)
+Gen: [0.2, 0.5, 0.3] representa probabilidades para exámenes A, B, C
+
+Generación 0: Mejor fitness = -1.0911
+Generación 30: Mejor fitness = -1.0911
+Generación 60: Mejor fitness = -1.0911
+Generación 90: Mejor fitness = -1.0911
+Generación 120: Mejor fitness = -1.0911
+
+Distribución optimizada:
+Examen A: 13 alumnos
+  Promedio: 15.38, Varianza: 12.24
+  Rango de notas: [9 - 20]
+Examen B: 13 alumnos
+  Promedio: 15.38, Varianza: 11.62
+  Rango de notas: [9 - 20]
+Examen C: 13 alumnos
+  Promedio: 15.46, Varianza: 7.79
+  Rango de notas: [11 - 20]
+
+Análisis de equilibrio:
+Promedios por examen: A=15.38, B=15.38, C=15.46
+Desviación estándar entre promedios: 0.0363
+Diferencia máxima entre promedios: 0.08
+
+****************************************************************************************************
+
+
+REPRESENTACIÓN PERMUTACIONAL
+Problema: Secuenciar alumnos para asignación ordenada a exámenes
+Cromosoma: Permutación de 39 índices de alumnos
+Decodificación: Posiciones [0-12] → Examen A, [13-25] → Examen B, [26-38] → Examen C
+
+Generación 0: Mejor fitness = 0.0794
+Generación 10: Mejor fitness = 0.2637
+Generación 20: Mejor fitness = 0.2637
+Generación 30: Mejor fitness = 0.2637
+Generación 40: Mejor fitness = 0.2637
+
+Asignación final por orden de secuencia:
+
+Examen A: 13 alumnos, promedio = 15.46
+  Secuencia de alumnos:
+    Posición 1: Alumno17 (Nota: 20.0)
+    Posición 2: Alumno8 (Nota: 13.0)
+    Posición 3: Alumno3 (Nota: 14.0)
+    Posición 4: Alumno28 (Nota: 13.0)
+    Posición 5: Alumno31 (Nota: 19.0)
+    ... (mostrando primeros 5)
+
+Examen B: 13 alumnos, promedio = 15.38
+  Secuencia de alumnos:
+    Posición 1: Alumno4 (Nota: 10.0)
+    Posición 2: Alumno13 (Nota: 14.0)
+    Posición 3: Alumno12 (Nota: 19.0)
+    Posición 4: Alumno6 (Nota: 11.0)
+    Posición 5: Alumno11 (Nota: 19.0)
+    ... (mostrando primeros 5)
+
+Examen C: 13 alumnos, promedio = 15.38
+  Secuencia de alumnos:
+    Posición 1: Alumno38 (Nota: 9.0)
+    Posición 2: Alumno37 (Nota: 13.0)
+    Posición 3: Alumno22 (Nota: 20.0)
+    Posición 4: Alumno21 (Nota: 13.0)
+    Posición 5: Alumno35 (Nota: 11.0)
+    ... (mostrando primeros 5)
+
+Estadísticas finales:
+Promedios: A=15.46, B=15.38, C=15.38
+Rangos de notas: A=11, B=10, C=11
+Desviación estándar entre promedios: 0.0363
+
+Evolución del algoritmo:
+Fitness inicial: 0.0794
+Fitness final: 0.2637
+Mejora total: 232.0%
+

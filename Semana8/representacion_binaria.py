@@ -2,7 +2,7 @@ import random
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('notas_1u.csv')
+df = pd.read_csv('Semana8/notas_1u.csv')
 alumnos = df['Alumno'].tolist()
 notas = df['Nota'].tolist()
 
@@ -31,17 +31,32 @@ def decodificar_cromosoma(cromosoma):
 def calcular_fitness(cromosoma):
     asignaciones = decodificar_cromosoma(cromosoma)
     
-    if any(len(asignaciones[ex]) != 13 for ex in ['A', 'B', 'C']):
-        return -1000
-    
     promedios = {}
+    varianzas = {}
+    diversidades = {}
+
+    # Calcular los promedios, varianzas y diversidades
     for examen in ['A', 'B', 'C']:
         indices = asignaciones[examen]
         notas_examen = [notas[i] for i in indices]
         promedios[examen] = np.mean(notas_examen)
+        varianzas[examen] = np.var(notas_examen)
+        diversidades[examen] = max(notas_examen) - min(notas_examen)
     
-    desviacion = np.std(list(promedios.values()))
-    return -desviacion
+    # Desviación estándar entre los promedios de los exámenes
+    desv_promedios = np.std(list(promedios.values()))
+    
+    # Penalización por varianza alta de notas
+    penalizacion_varianza = sum(varianzas.values()) / 3  # Promedio de varianzas
+    
+    # Premio por diversidad
+    premio_diversidad = sum([0.1 for v in diversidades.values() if v > 5])  # Si la diferencia es mayor que 5
+    
+    # Fitness final: Minimizamos la desviación entre promedios, penalizamos varianza y premiamos la diversidad
+    fitness = -desv_promedios - penalizacion_varianza + premio_diversidad
+    return fitness
+
+
 
 def mutacion(cromosoma):
     cromosoma_mutado = cromosoma.copy()
@@ -114,3 +129,6 @@ for examen in ['A', 'B', 'C']:
     notas_examen = [notas[i] for i in indices]
     promedios.append(np.mean(notas_examen))
 print(f"Desviación estándar entre promedios: {np.std(promedios):.4f}")
+
+# Guardar las asignaciones finales en una variable accesible para la visualización
+asignaciones_binaria = decodificar_cromosoma(mejor_solucion)
